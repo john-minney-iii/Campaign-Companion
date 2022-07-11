@@ -1,18 +1,20 @@
-import React from 'react';
-import axios from "axios";
+import React, { useState } from "react";
+
+// Api
+import { createNewUser } from "./api/userApi";
 
 const App = () => {
+  const [currentUser, setCurrentUser] = useState(null);
 
-  const createNewUser = async () => {
-    console.log("Create new user");
-    const res = await axios.post("http://localhost:5000/user/", { username: "testUser" });
-    console.log(res);
-    if (res.status === 200)
-      console.log(res.data);
+  const createNewUserSubmit = async (username) => {
+    const res = await createNewUser(username);
+    if (res) setCurrentUser(res.data);
+    else alert("Something went wrong while creating a user. Please try again");
+    console.log(currentUser);
   };
 
   return <>
-    <button onClick={() => createNewUser()}>New User</button>
+    <button onClick={() => createNewUserSubmit("newUser")}>New User</button>
   </>;
 };
 

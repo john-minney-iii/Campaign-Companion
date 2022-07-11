@@ -11,7 +11,6 @@ export const getUsers = async (req, res) => {
 
 export const createUser = async (req, res) => {
     const body = req.body;
-    console.log(`Create user ${JSON.stringify(body)}`);
     const newUser = new User(body);
     try {
         await newUser.save();
